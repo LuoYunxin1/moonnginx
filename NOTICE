@@ -1,0 +1,6 @@
+MoonNginx
+Copyright 2026 MoonNginx contributors
+
+This product includes ideas from nginxinc/nginx-go-crossplane (Apache-2.0)
+and implements nginx.conf lexical and directive-tree conventions.
+Go sources are not copied into this repository.
