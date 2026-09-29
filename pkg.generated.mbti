@@ -1,0 +1,230 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "LuoYunxin1/moonnginx"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn analyze_config(Config) -> ConfigStats
+
+pub fn build_config(Array[Directive]) -> Config
+
+pub fn collect_names(Config) -> Array[String]
+
+pub fn config_json(Config) -> Json
+
+pub fn config_ok(String, Array[Directive]) -> Config
+
+pub fn config_summary(Config) -> String
+
+pub fn count_directives(Config) -> Int
+
+pub fn dir_block(String, Array[String], Array[Directive], Int) -> Directive
+
+pub fn dir_comment(String, Int) -> Directive
+
+pub fn dir_simple(String, Array[String], Int) -> Directive
+
+pub fn dump_conf(Config) -> String
+
+pub fn empty_config(String) -> Config
+
+pub fn first_server_name(Directive) -> String?
+
+pub fn has_ssl(Directive) -> Bool
+
+pub fn includes_of(Config) -> Array[String]
+
+pub fn known_core_directive(String) -> Bool
+
+pub fn library_name() -> String
+
+pub fn line_msg(Int, String) -> String
+
+pub fn listen_addrs(Directive) -> Array[String]
+
+pub fn location_paths(Directive) -> Array[String]
+
+pub fn locations_of(Directive) -> Array[Directive]
+
+pub fn ngx_access_log(String) -> Directive
+
+pub fn ngx_add_header(String, String) -> Directive
+
+pub fn ngx_allow(String) -> Directive
+
+pub fn ngx_client_max_body_size(String) -> Directive
+
+pub fn ngx_deny(String) -> Directive
+
+pub fn ngx_error_log(String) -> Directive
+
+pub fn ngx_events(Array[Directive]) -> Directive
+
+pub fn ngx_gzip(String) -> Directive
+
+pub fn ngx_http(Array[Directive]) -> Directive
+
+pub fn ngx_if(Array[String], Array[Directive]) -> Directive
+
+pub fn ngx_include(String) -> Directive
+
+pub fn ngx_index(Array[String]) -> Directive
+
+pub fn ngx_keepalive_timeout(String) -> Directive
+
+pub fn ngx_listen(String) -> Directive
+
+pub fn ngx_location(String, Array[Directive]) -> Directive
+
+pub fn ngx_location_mod(String, String, Array[Directive]) -> Directive
+
+pub fn ngx_pid(String) -> Directive
+
+pub fn ngx_proxy_pass(String) -> Directive
+
+pub fn ngx_return_code(String) -> Directive
+
+pub fn ngx_return_url(String, String) -> Directive
+
+pub fn ngx_rewrite(String, String) -> Directive
+
+pub fn ngx_root(String) -> Directive
+
+pub fn ngx_sendfile(String) -> Directive
+
+pub fn ngx_server(Array[Directive]) -> Directive
+
+pub fn ngx_server_name(String) -> Directive
+
+pub fn ngx_set(String, String) -> Directive
+
+pub fn ngx_try_files(Array[String]) -> Directive
+
+pub fn ngx_upstream(String, Array[Directive]) -> Directive
+
+pub fn ngx_upstream_server(String) -> Directive
+
+pub fn ngx_worker_connections(String) -> Directive
+
+pub fn ngx_worker_processes(String) -> Directive
+
+pub fn parse_and_validate(String) -> Result[Config, NgxError]
+
+pub fn parse_conf(String) -> Result[Config, NgxError]
+
+pub fn parse_conf_named(String, String) -> Result[Config, NgxError]
+
+pub fn parse_dump(String) -> Result[String, NgxError]
+
+pub fn payload_json(Config) -> Json
+
+pub fn payload_text(Config) -> String
+
+pub fn proxy_backends(Config) -> Array[String]
+
+pub fn rewrite_rules(Config) -> Array[(String, String)]
+
+pub fn roundtrip(String) -> Result[String, NgxError]
+
+pub fn servers_of(Config) -> Array[Directive]
+
+pub fn supported_blocks() -> Array[String]
+
+pub fn syntax_profile() -> String
+
+pub fn unknown_directives(Config) -> Array[String]
+
+pub fn[T] unwrap_ngx(Result[T, NgxError]) -> T
+
+pub fn upstream_peers(Config, String) -> Array[String]
+
+pub fn uses_known_directives_only(Config) -> Bool
+
+pub fn validate_core(Config) -> Result[Unit, NgxError]
+
+// Errors
+
+// Types and methods
+pub(all) struct Config {
+  file : String
+  parsed : Array[Directive]
+  status : String
+} derive(Eq, @debug.Debug)
+pub fn Config::equal(Self, Self) -> Bool
+pub fn Config::find(Self, String) -> Array[Directive]
+pub fn Config::find_all(Self, String) -> Array[Directive]
+pub fn Config::not_equal(Self, Self) -> Bool
+pub fn Config::to_repr(Self) -> @debug.Repr
+
+pub(all) struct ConfigStats {
+  mut directives : Int
+  mut blocks : Int
+  mut simple : Int
+  mut comments : Int
+  mut max_depth : Int
+  mut servers : Int
+  mut locations : Int
+  mut upstreams : Int
+  mut includes : Int
+  unknown : Array[String]
+} derive(Eq, @debug.Debug)
+pub fn ConfigStats::equal(Self, Self) -> Bool
+pub fn ConfigStats::not_equal(Self, Self) -> Bool
+pub fn ConfigStats::to_repr(Self) -> @debug.Repr
+
+pub(all) struct Directive {
+  name : String
+  line : Int
+  args : Array[String]
+  quoted : Array[Bool]
+  children : Array[Directive]
+  has_block : Bool
+  comment : String?
+} derive(Eq, @debug.Debug)
+pub fn Directive::arg0(Self) -> String?
+pub fn Directive::child(Self, String) -> Array[Self]
+pub fn Directive::equal(Self, Self) -> Bool
+pub fn Directive::is_block(Self) -> Bool
+pub fn Directive::is_comment(Self) -> Bool
+pub fn Directive::is_include(Self) -> Bool
+pub fn Directive::not_equal(Self, Self) -> Bool
+pub fn Directive::to_repr(Self) -> @debug.Repr
+
+pub(all) enum NgxError {
+  Syntax(String)
+  Unexpected(String)
+  Unterminated(String)
+  Constraint(String)
+  NotImplemented(String)
+} derive(Eq, @debug.Debug)
+pub fn NgxError::equal(Self, Self) -> Bool
+pub fn NgxError::message(Self) -> String
+pub fn NgxError::not_equal(Self, Self) -> Bool
+pub fn NgxError::to_repr(Self) -> @debug.Repr
+
+pub(all) struct Tok {
+  kind : TokKind
+  value : String
+  line : Int
+} derive(Eq, @debug.Debug)
+pub fn Tok::equal(Self, Self) -> Bool
+pub fn Tok::not_equal(Self, Self) -> Bool
+pub fn Tok::to_repr(Self) -> @debug.Repr
+
+pub(all) enum TokKind {
+  Word
+  Quoted
+  LBrace
+  RBrace
+  Semi
+  Comment
+} derive(Eq, @debug.Debug)
+pub fn TokKind::equal(Self, Self) -> Bool
+pub fn TokKind::not_equal(Self, Self) -> Bool
+pub fn TokKind::to_repr(Self) -> @debug.Repr
+
+// Type aliases
+
+// Traits
