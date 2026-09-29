@@ -14,20 +14,30 @@ jobs:
           curl -fsSL https://cli.moonbitlang.com/install/unix.sh -o /tmp/install-moonbit.sh
           bash /tmp/install-moonbit.sh
           echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
-      - name: Toolchain versions
-        run: moon version --all
+      - name: Toolchain versions and minimum compiler
+        shell: bash
+        run: |
+          moon version --all
+          version="$(moonc -v 2>&1 | sed -n 's/^v\([0-9.]*\).*/\1/p')"
+          test -n "$version"
+          test "$(printf '%s\n' 0.10.14 "$version" | sort -V | head -n1)" = "0.10.14"
       - name: Check supported targets
         run: |
           moon check --target wasm-gc --deny-warn
           moon check --target wasm --deny-warn
           moon check --target js --deny-warn
           moon check --target native --deny-warn
-      - name: Test supported local targets
+      - name: Build supported targets
+        run: |
+          moon build --target wasm-gc --deny-warn
+          moon build --target wasm --deny-warn
+          moon build --target js --deny-warn
+          moon build --target native --deny-warn
+      - name: Test supported targets
         run: |
           moon test --target wasm-gc --deny-warn
           moon test --target wasm --deny-warn
           moon test --target js --deny-warn
-      - name: Build and demo
-        run: |
-          moon build --target wasm-gc --deny-warn
-          moon run cmd/main --target wasm-gc
+          moon test --target native --deny-warn
+      - name: Run acceptance demo
+        run: moon run cmd/main --target wasm-gc
