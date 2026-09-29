@@ -28,9 +28,19 @@ For a checked-out development copy, run commands from the repository root. MoonB
 
 ## Minimal use
 
+Add the package import to the consumer package's `moon.pkg`:
+
 ```moonbit
-let cfg = unwrap_ngx(parse_and_validate("worker_processes 4;\\n"))
-let text = dump_conf(cfg)
+import {
+  "LuoYunxin1/moonnginx" @ngx,
+}
+```
+
+Then call the public API through the package alias:
+
+```moonbit
+let cfg = @ngx.unwrap_ngx(@ngx.parse_and_validate("worker_processes 4;\\n"))
+let text = @ngx.dump_conf(cfg)
 println(text)
 ```
 
