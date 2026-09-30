@@ -9,3 +9,9 @@
 ## 0.1.0
 
 - Initial nginx.conf lexer, parser, dump, builder, JSON payload, and core-context validation.
+
+## 0.2.0 - 2026-09-30
+
+- Added configuration structure analysis and directive statistics.
+- Added unknown-directive reporting and summary generation.
+- Expanded cross-target CI and reproducible consumer documentation.
